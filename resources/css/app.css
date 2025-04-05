@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* LIGHT THEME */
+
+nav{
+  /* background-color: #b13636; */
+  background-color: #031627;
+}
+
+
+
+.brand-nav-link-active{
+  color: white;
+  border-color: #80a8fd;
+}
+
+.brand-nav-link-inactive{
+  color: rgb(219, 217, 217);
+}
+
+.brand-input{
+  /* border-color: #b13636; */
+}
+
+
+/* DARK THEME */
+
+/* Form */
+.dark .brand-input{
+  background-color: #031627;
+  border: 1px solid #5f7e97;
+  color: #c2d4fb;
+}
+.dark .brand-option:hover{
+  background-color: #23567f;
+}
+
+/* Models */
+.dark .brand-model{
+  background-color: #031627;
+  color: #031627;
+  border: 1px solid #5f7e97;
+}
+.dark .brand-model h2{
+  color: #fb6262;
+}
+.dark .brand-model h3{
+  color: #fb6262;
+}
+.dark .brand-model label{
+  color: #80a8fd;
+}
+
+
+/* Text */
+.dark .brand-text{
+  color: #80a8fd;
+}
+.dark .brand-text-lite{
+  color: #b7ccf9;
+}
+
+/* Buttons */
+.dark button.brand-button-create{
+  background-color: #0aeaaf;
+  color: #031627;
+}
+.dark button.brand-button-create:hover{
+  background-color: #82f7d8;
+  color: #031627;
+}
+.dark button.brand-button-edit{
+  background-color: #ffeb95;
+  color: #031627;
+}
+.dark button.brand-button-edit:hover{
+  background-color: #fbf2c8;
+  color: #031627;
+}
+.dark button.brand-button-delete{
+  background-color: #fb6262;
+  color: #031627;
+}
+.dark button.brand-button-delete:hover{
+  background-color: #f67f7f;
+  color: #031627;
+}
+
+
+
+
+.dark .brand-feedback{
+  border-color: #0aeaaf;
+  color: #0aeaaf;
+}
+
+.dark .bg-green-100{
+  background-color: #7fdbca;
+}
+.dark .text-green-800{
+  color: #031627;
+}
+.dark .text-gray-500{
+  color: #d4dff7;
+}
+
+.dark .brand-label{
+  color: #80a8fd;
+}
+
+/* Container */
+
+.dark .brand-container{
+  background-color: #0b253a;
+}
+
+.dark .py-12 div:nth-child(1) div:nth-child(1) {
+    background-color: #031627;
+  }
+
+.dark nav{
+    background-color: #111827;
+    border-bottom: 1px solid #5f7e97 ;
+}
+
+
+
+/* Foreground */
+.dark .brand-table tbody tr{
+    color: #9dbaf9;
+    /* color: #ffeb95; */
+    background-color: #031627;
+}
+
+.dark .brand-table thead th{
+    color: #ffeb95;
+    background-color: #031627;
+}
+
+.dark .brand-table tr td{
+    border-bottom: 1px solid #5f7e97;
+}
+
+.dark .brand-table tr th{
+    border-bottom: 1px solid white
+}
+
+.dark .brand-nav-link-active{
+    color: #fb6262;
+    border-color: #fb6262;
+}
+
+.dark .brand-nav-link-inactive{
+    color: #80a8fd;
+}
+
+.dark header{
+    background-color: #031627;
+    border-bottom: 1px solid #5f7e97;
+}
+.dark .brand-page-title-container h2{
+  color: #fb6262;
+}
