@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'; // Import AuthenticatedLayout
 import AppHeader from '@/Components/AppHeader.vue'; // Keep AppHeader for guest view
-// Footer import removed
+import Footer from '@/Components/Footer.vue'; // Import Footer component
 import MarkdownIt from 'markdown-it';
 
 const page = usePage();
@@ -158,15 +158,19 @@ onMounted(() => {
     <div v-else :class="{ dark: isDark }">
         <AppHeader />
         <!-- Add header to match authenticated layout -->
-        <header class="bg-white dark:bg-gray-800 shadow">
+        <!-- <header class="bg-white dark:bg-gray-800 shadow">
             <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ location.name }}
                 </h2>
             </div>
-        </header>
+        </header> -->
+
+        <h1 class="mt-5 location-heading eb-garamond-bold  text-center">
+             {{ location.name }}
+        </h1>
         
-        <div class="py-12">
+        <div>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -196,6 +200,7 @@ onMounted(() => {
             </div>
         </div>
         <!-- Consider adding a guest footer here if needed -->
+        <Footer />
     </div>
 </template>
 

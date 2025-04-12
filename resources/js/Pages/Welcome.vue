@@ -39,9 +39,13 @@ function handleImageError() {
         >
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header
-                    class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3"
+                    class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3 relative"
+                    style="background-image: url('/images/sandstone-texture.svg'); background-size: cover; border-radius: 8px;"
                 >
-                    <div class="flex lg:col-start-2 lg:justify-center">
+                    <!-- Overlay to improve text visibility -->
+                    <div class="absolute inset-0 bg-white/30 dark:bg-black/30 rounded-lg"></div>
+                    
+                    <div class="flex lg:col-start-2 lg:justify-center relative z-10">
                         <svg
                             class="h-12 w-auto text-white lg:h-16 lg:text-[#FF2D20]"
                             viewBox="0 0 62 65"
@@ -54,7 +58,7 @@ function handleImageError() {
                             />
                         </svg>
                     </div>
-                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
+                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end relative z-10">
                         <Link
                             v-if="$page.props.auth.user"
                             :href="route('dashboard')"

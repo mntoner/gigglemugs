@@ -2,19 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+.cinzel-decorative-regular {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
+.cinzel-decorative-bold {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.cinzel-decorative-black {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.eb-garamond-regular {
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.eb-garamond-bold {
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+.eb-garamond-black {
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+}
+
+body{
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.brand-heading{
+  font-size: 3em;
+ 
+}
+.brand-subheading{
+  margin-top: -20px;
+  font-size: 3em;
+  
+}
+.brand-subheading_2{
+  margin-top: -12px;
+  font-size: 1em;
+}
+.heading-link{
+  color: rgb(54, 54, 250);
+}
 
 header{
-  /* background-color: #b13636; */
-  background-color: #031627;
+  height: 140px;
 }
+
+.location-heading{
+  font-size: 2em;
+}
+
 
 
 /* LIGHT THEME */
 
 nav{
-  /* background-color: #b13636; */
-  background-color: #031627;
+/* 
+  background-color: #031627; */
 }
 
 

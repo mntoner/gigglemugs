@@ -1,0 +1,45 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Create seamless pattern -->
+        <pattern id="sandstonePattern" width="200" height="200" patternUnits="userSpaceOnUse">
+            <!-- Base layer with subtle gradient -->
+            <rect x="0" y="0" width="200" height="200" fill="#D2B48C"/>
+            
+            <!-- Multiple noise layers with different frequencies -->
+            <filter id="sandstoneTexture1">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="1" stitchTiles="stitch" result="noise1"/>
+                <feDiffuseLighting in="noise1" lighting-color="#E6D2B0" surfaceScale="1.5" result="light1">
+                    <feDistantLight azimuth="45" elevation="60"/>
+                </feDiffuseLighting>
+                <feComposite operator="in" in="light1" in2="SourceGraphic" result="textured1"/>
+            </filter>
+            
+            <filter id="sandstoneTexture2">
+                <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" seed="5" stitchTiles="stitch" result="noise2"/>
+                <feDiffuseLighting in="noise2" lighting-color="#C9AD8B" surfaceScale="1" result="light2">
+                    <feDistantLight azimuth="135" elevation="45"/>
+                </feDiffuseLighting>
+                <feComposite operator="in" in="light2" in2="SourceGraphic" result="textured2"/>
+            </filter>
+            
+            <!-- Layered textures -->
+            <rect x="0" y="0" width="200" height="200" fill="#D2B48C" opacity="0.6" filter="url(#sandstoneTexture1)"/>
+            <rect x="0" y="0" width="200" height="200" fill="#D2B48C" opacity="0.3" filter="url(#sandstoneTexture2)"/>
+            
+            <!-- Subtle speckles -->
+            <g fill="#BAA78F" fill-opacity="0.15">
+                <circle cx="25" cy="42" r="0.5" />
+                <circle cx="87" cy="123" r="0.6" />
+                <circle cx="156" cy="78" r="0.4" />
+                <circle cx="43" cy="167" r="0.5" />
+                <circle cx="173" cy="22" r="0.7" />
+                <circle cx="132" cy="190" r="0.5" />
+                <circle cx="69" cy="33" r="0.4" />
+                <circle cx="111" cy="89" r="0.6" />
+            </g>
+        </pattern>
+    </defs>
+
+    <!-- Apply pattern to the full SVG area -->
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#sandstonePattern)" />
+</svg>
