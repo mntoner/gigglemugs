@@ -28,6 +28,10 @@ Route::get('/', function () {
 Route::get('/location/{location}/{location_name}', [App\Http\Controllers\HomeController::class, 'show'])
     ->name('location.show');
 
+// Route to fetch locations for the navigation panel
+Route::get('/locations/city/{city}', [App\Http\Controllers\HomeController::class, 'getLocationsByCity'])
+    ->name('locations.byCity');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -4,6 +4,7 @@ import { Head, usePage } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'; // Import AuthenticatedLayout
 import AppHeader from '@/Components/AppHeader.vue'; // Keep AppHeader for guest view
 import Footer from '@/Components/Footer.vue'; // Import Footer component
+import LocationNavPanel from '@/Components/LocationNavPanel.vue'; // Import the new nav panel
 import MarkdownIt from 'markdown-it';
 
 const page = usePage();
@@ -124,29 +125,36 @@ onMounted(() => {
             </h2>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <!-- Featured Image -->
-                        <div v-if="featuredImage" class="mb-6">
-                          <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
-                        </div>
-                        <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
-                            <span class="text-gray-500 dark:text-gray-400">No image available</span>
-                        </div>
+        <!-- Main content area with Flexbox for sidebar -->
+        <div class="flex h-full"> <!-- Use flex container -->
+            <!-- Navigation Panel -->
+            <LocationNavPanel v-if="location.city" :city="location.city" class="flex-shrink-0" />
 
-                        <!-- Description (Markdown) -->
-                        <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
-                        </div>
+            <!-- Page Content -->
+            <div class="flex-grow py-12 overflow-y-auto"> <!-- Content takes remaining space -->
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <!-- Featured Image -->
+                            <div v-if="featuredImage" class="mb-6">
+                                <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
+                            </div>
+                            <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
+                                <span class="text-gray-500 dark:text-gray-400">No image available</span>
+                            </div>
 
-                        <!-- Google Map Placeholder -->
-                        <div class="mb-8">
-                          <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
-                          <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md">
-                            <!-- Google Map will be initialized here -->
-                            Map Placeholder
-                          </div>
+                            <!-- Description (Markdown) -->
+                            <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
+                            </div>
+
+                            <!-- Google Map Placeholder -->
+                            <div class="mb-8">
+                                <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
+                                <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md">
+                                    <!-- Google Map will be initialized here -->
+                                    Map Placeholder
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -170,37 +178,43 @@ onMounted(() => {
              {{ location.name }}
         </h1>
         
-        <div>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <!-- Featured Image -->
-                        <div v-if="featuredImage" class="mb-6">
-                          <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
-                        </div>
-                        <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
-                            <span class="text-gray-500 dark:text-gray-400">No image available</span>
-                        </div>
+        <!-- Main content area with Flexbox for sidebar -->
+        <div class="flex min-h-screen"> <!-- Use flex container -->
+             <!-- Navigation Panel -->
+            <LocationNavPanel v-if="location.city" :city="location.city" class="flex-shrink-0" />
 
+            <!-- Page Content -->
+            <div class="flex-grow overflow-y-auto"> <!-- Content takes remaining space -->
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6"> <!-- Added padding -->
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <!-- Featured Image -->
+                            <div v-if="featuredImage" class="mb-6">
+                                <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
+                            </div>
+                            <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
+                                <span class="text-gray-500 dark:text-gray-400">No image available</span>
+                            </div>
 
-                        <!-- Description (Markdown) -->
-                        <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
-                        </div>
+                            <!-- Description (Markdown) -->
+                            <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
+                            </div>
 
-                        <!-- Google Map Placeholder -->
-                        <div class="mb-8">
-                          <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
-                          <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md">
-                            <!-- Google Map will be initialized here -->
-                            Map Placeholder
-                          </div>
+                            <!-- Google Map Placeholder -->
+                            <div class="mb-8">
+                                <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
+                                <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md">
+                                    <!-- Google Map will be initialized here -->
+                                    Map Placeholder
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                 <!-- Footer should be outside the flex item that scrolls if you want it fixed/at bottom -->
             </div>
         </div>
-        <!-- Consider adding a guest footer here if needed -->
-        <Footer />
+        <Footer /> <!-- Moved Footer outside the flex container for better layout control -->
     </div>
 </template>
 
