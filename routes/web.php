@@ -25,14 +25,8 @@ Route::get('/', function () {
 });
 
 // Location Page Route (Publicly Accessible)
-Route::get('/location/{location}/{location_name}', function (Locations $location, $location_name) {
-    // The {location} parameter uses route model binding to fetch the Locations model instance.
-    // The {location_name} is present for SEO/user-friendly URLs but not strictly needed for fetching.
-    // We could add validation to ensure location_name matches the fetched location if desired.
-    return Inertia::render('Location', [
-        'location' => $location,
-    ]);
-})->name('location.show');
+Route::get('/location/{location}/{location_name}', [App\Http\Controllers\HomeController::class, 'show'])
+    ->name('location.show');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
