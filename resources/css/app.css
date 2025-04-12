@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+header{
+  /* background-color: #b13636; */
+  background-color: #031627;
+}
+
+
 /* LIGHT THEME */
 
 nav{
@@ -26,6 +34,8 @@ nav{
 
 
 /* DARK THEME */
+
+
 
 /* Form */
 .dark .brand-input{

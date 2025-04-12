@@ -10,7 +10,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'; // Assuming you 
 </script>
 
 <template>
-    <header class="bg-white dark:bg-gray-800 shadow">
+    <header class="dark:bg-gray-800 shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
@@ -37,7 +37,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'; // Assuming you 
                         <Link
                             v-if="$page.props.auth.user"
                             :href="route('dashboard')"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                            class="rounded-md px-3 py-2 ring-1 ring-transparent transition focus:outline-none focus-visible:ring-[#FF2D20] text-white dark:focus-visible:ring-white"
                         >
                             Dashboard
                         </Link>
@@ -45,14 +45,14 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue'; // Assuming you 
                         <template v-else>
                             <Link
                                 :href="route('login')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                class="rounded-md px-3 py-2  ring-1 ring-transparent transition  focus:outline-none focus-visible:ring-[#FF2D20] text-white  dark:focus-visible:ring-white"
                             >
                                 Log in
                             </Link>
 
                             <Link
                                 :href="route('register')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                class="rounded-md px-3 py-2 ring-1 ring-transparent transition  focus:outline-none focus-visible:ring-[#FF2D20] text-white  dark:focus-visible:ring-white"
                             >
                                 Register
                             </Link>

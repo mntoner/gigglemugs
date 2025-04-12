@@ -8,6 +8,16 @@ import MarkdownIt from 'markdown-it';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
+// Add dark mode state for consistency between authenticated and guest views
+const isDark = ref(false);
+
+// When the component is mounted, load the saved dark mode preference
+onMounted(() => {
+  if (localStorage.getItem('isDark') === 'true') {
+    isDark.value = true;
+    document.documentElement.classList.add('dark');
+  }
+});
 
 const props = defineProps({
   location: {
@@ -145,30 +155,44 @@ onMounted(() => {
     </AuthenticatedLayout>
 
     <!-- Guest View -->
-    <div v-else>
+    <div v-else :class="{ dark: isDark }">
         <AppHeader />
-        <div class="container mx-auto px-4 py-8">
-            <h1 class="text-3xl font-bold mb-4">{{ location.name }}</h1>
-            <!-- Featured Image -->
-            <div v-if="featuredImage" class="mb-6">
-              <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
+        <!-- Add header to match authenticated layout -->
+        <header class="bg-white dark:bg-gray-800 shadow">
+            <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ location.name }}
+                </h2>
             </div>
-            <div v-else class="mb-6 h-64 bg-gray-200 rounded-lg shadow-md flex items-center justify-center">
-                <span class="text-gray-500">No image available</span>
-            </div>
+        </header>
+        
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <!-- Featured Image -->
+                        <div v-if="featuredImage" class="mb-6">
+                          <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
+                        </div>
+                        <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
+                            <span class="text-gray-500 dark:text-gray-400">No image available</span>
+                        </div>
 
 
-            <!-- Description (Markdown) -->
-            <div class="prose max-w-none mb-8" v-html="renderedMarkdown">
-            </div>
+                        <!-- Description (Markdown) -->
+                        <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
+                        </div>
 
-            <!-- Google Map Placeholder -->
-            <div class="mb-8">
-              <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
-              <div ref="mapContainer" class="w-full h-96 bg-gray-300 rounded-lg shadow-md">
-                <!-- Google Map will be initialized here -->
-                Map Placeholder
-              </div>
+                        <!-- Google Map Placeholder -->
+                        <div class="mb-8">
+                          <h2 class="text-2xl font-semibold mb-4">Location Map</h2>
+                          <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md">
+                            <!-- Google Map will be initialized here -->
+                            Map Placeholder
+                          </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Consider adding a guest footer here if needed -->
