@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { Head, usePage } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'; // Import AuthenticatedLayout
 import AppHeader from '@/Components/AppHeader.vue'; // Keep AppHeader for guest view
 import Footer from '@/Components/Footer.vue'; // Import Footer component
 import LocationNavPanel from '@/Components/LocationNavPanel.vue'; // Import the new nav panel
@@ -9,16 +8,6 @@ import MarkdownIt from 'markdown-it';
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
-// Add dark mode state for consistency between authenticated and guest views
-const isDark = ref(false);
-
-// When the component is mounted, load the saved dark mode preference
-onMounted(() => {
-  if (localStorage.getItem('isDark') === 'true') {
-    isDark.value = true;
-    document.documentElement.classList.add('dark');
-  }
-});
 
 const props = defineProps({
   location: {
@@ -118,84 +107,7 @@ onMounted(() => {
 <template>
     <Head :title="location.name" />
 
-    <!-- Authenticated View -->
-    <AuthenticatedLayout v-if="user">
-         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ location.name }}
-            </h2>
-        </template>
-
-        <!-- Main content area with Flexbox for sidebar -->
-        <div class="flex h-full items-start"> <!-- Added items-start -->
-            <!-- Sidebar Container: Holds Nav Panel and Map Button -->
-            <div class="flex-shrink-0"> <!-- Wrapper is a non-shrinking flex item -->
-                <!-- Navigation Panel -->
-                <LocationNavPanel v-if="location.city" :city="location.city" />
-
-                <!-- Map Link -->
-                <div class="px-4 py-3"> <!-- Button stacks below panel naturally -->
-                    <button
-                        @click="toggleMapModal"
-                        class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center space-x-2 transition"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
-                        <span>View Map</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Page Content -->
-            <div class="flex-grow py-12 overflow-y-auto"> <!-- Content takes remaining space -->
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Featured Image -->
-                            <div v-if="featuredImage" class="mb-6">
-                                <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
-                            </div>
-                            <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
-                                <span class="text-gray-500 dark:text-gray-400">No image available</span>
-                            </div>
-
-                            <!-- Description (Markdown) -->
-                            <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
-                            </div>
-
-                            <!-- Google Map section removed from here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Map Modal -->
-        <div v-if="showMapModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-xl">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Location Map</h2>
-                        <button @click="toggleMapModal" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg">
-                        <!-- Google Map will be initialized here when modal opens -->
-                        <div class="w-full h-full flex items-center justify-center">
-                            <p class="text-gray-500 dark:text-gray-400">Loading map...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </AuthenticatedLayout>
-
-    <!-- Guest View -->
-    <div v-else :class="{ dark: isDark }">
+    <div>
         <AppHeader />
 
         <h1 class="mt-5 location-heading eb-garamond-bold  text-center">

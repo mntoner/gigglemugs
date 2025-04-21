@@ -40,6 +40,9 @@
   font-style: normal;
 }
 
+
+
+
 body{
   font-family: "EB Garamond", serif;
   font-optical-sizing: auto;
@@ -71,6 +74,14 @@ header{
 
 .location-heading{
   font-size: 2em;
+}
+
+/* COMPONENTS */
+
+.google-map-thumb{
+  background-image: url('/images/google_map_thumb.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
