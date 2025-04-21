@@ -90,9 +90,9 @@ onMounted(() => {
       <li v-for="location in locations" :key="location.id">
         <Link
           :href="getLocationUrl(location)"
-          style="font-family: 'EB Garamond';font-weight: 700;font-size: 1.2em;"
+          style="font-family: 'EB Garamond';font-weight: 700;font-size: 1em;text-transform: uppercase;"
           :class="[
-            'block px-3 py-1 rounded-md text-sm  transition-colors duration-150 ease-in-out',
+            'block px-3 py-1 rounded-md text-sm transition-colors duration-150 ease-in-out',
             location.id === currentLocationId
                 ? 'bg-red-700 text-white dark:bg-red-800' // Active link style - brick red color
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700' // Inactive link style

@@ -98,10 +98,7 @@ const initMap = () => {
   });
 };
 
-// Load Google Maps API on component mount, but don't initialize the map yet
-onMounted(() => {
-  // No need to initialize map on mount - will be initialized when modal opens
-});
+
 </script>
 
 <template>
@@ -110,76 +107,80 @@ onMounted(() => {
     <div>
         <AppHeader />
 
-        <h1 class="mt-5 location-heading eb-garamond-bold  text-center">
-             {{ location.name }}
-        </h1>
+        <div class='flex justify-center max-w-lg flex-col mx-auto' style="max-width:1200px">
 
-        <!-- Main content area with Flexbox for sidebar -->
-        <div class="flex min-h-screen items-start"> <!-- Added items-start -->
+            <h1 class="mt-5 location-heading eb-garamond-bold  text-center">
+                {{ location.name }}
+            </h1>
 
-            <!-- Sidebar Container: Holds Nav Panel and Map Button -->
-            <div class="flex-shrink-0"> <!-- Wrapper is a non-shrinking flex item -->
-                <!-- Navigation Panel -->
-                <LocationNavPanel v-if="location.city" :city="location.city" />
+            <!-- Main content area with Flexbox for sidebar -->
+            <div class="flex min-h-screen items-start"> <!-- Added items-start -->
 
-                <!-- Map Link -->
-                <div class="px-4 py-3"> <!-- Button stacks below panel naturally -->
-                    <button
-                        @click="toggleMapModal"
-                        class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center justify-center space-x-2 transition"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
-                        <span>View Map</span>
-                    </button>
-                </div>
-            </div>
+                <!-- Sidebar Container: Holds Nav Panel and Map Button -->
+                <div class="flex-shrink-0"> <!-- Wrapper is a non-shrinking flex item -->
+                    <!-- Navigation Panel -->
+                    <LocationNavPanel v-if="location.city" :city="location.city" />
 
-            <!-- Page Content -->
-            <div class="flex-grow overflow-y-auto"> <!-- Content takes remaining space -->
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6"> <!-- Added padding -->
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <!-- Featured Image -->
-                            <div v-if="featuredImage" class="mb-6">
-                                <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
-                            </div>
-                            <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
-                                <span class="text-gray-500 dark:text-gray-400">No image available</span>
-                            </div>
-
-                            <!-- Description (Markdown) -->
-                            <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
-                            </div>
-
-                            <!-- Google Map section removed from here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Map Modal -->
-        <div v-if="showMapModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-xl">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Location Map</h2>
-                        <button @click="toggleMapModal" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <!-- Map Link -->
+                    <div class="px-4 py-3 google-map-thumb mt-auto" @click="toggleMapModal" style="cursor: pointer;"> <!-- Add mt-auto to push to bottom -->
+                        <button
+                            @click="toggleMapModal"
+                            class="google-map-button w-full px-4 py-2 text-amber-800 rounded-md flex items-center justify-center space-x-2 transition"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                             </svg>
+                            <span>View Google Map</span>
                         </button>
                     </div>
-                    <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg">
-                        <!-- Google Map will be initialized here when modal opens -->
-                        <div class="w-full h-full flex items-center justify-center">
-                            <p class="text-gray-500 dark:text-gray-400">Loading map...</p>
+                </div>
+
+                <!-- Page Content -->
+                <div class="flex-grow overflow-y-auto"> <!-- Content takes remaining space -->
+                    <div class="max-w-7xl mx-auto px-8 py-6"> <!-- Added padding -->
+                        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="text-gray-900 dark:text-gray-100">
+                                <!-- Featured Image -->
+                                <div v-if="featuredImage" class="mb-6">
+                                    <img :src="featuredImage" :alt="location.name" class="w-full h-auto object-cover rounded-lg shadow-md max-h-96">
+                                </div>
+                                <div v-else class="mb-6 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex items-center justify-center">
+                                    <span class="text-gray-500 dark:text-gray-400">No image available</span>
+                                </div>
+
+                                <!-- Description (Markdown) -->
+                                <div class="prose dark:prose-invert max-w-none mb-8" v-html="renderedMarkdown">
+                                </div>
+
+                                <!-- Google Map section removed from here -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Map Modal -->
+            <div v-if="showMapModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
+                <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-lg shadow-xl">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Location Map</h2>
+                            <button @click="toggleMapModal" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div ref="mapContainer" class="w-full h-96 bg-gray-300 dark:bg-gray-600 rounded-lg">
+                            <!-- Google Map will be initialized here when modal opens -->
+                            <div class="w-full h-full flex items-center justify-center">
+                                <p class="text-gray-500 dark:text-gray-400">Loading map...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <Footer />

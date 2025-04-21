@@ -79,9 +79,12 @@ header{
 /* COMPONENTS */
 
 .google-map-thumb{
-  background-image: url('/images/google_map_thumb.gif');
+  margin-top:4px;
+  background-image: url('/images/google_map_thumb3.png');
+  background-size: 260px;
   background-repeat: no-repeat;
-  background-size: cover;
+  padding-top: 180px;
+  height:190px;
 }
 
 
