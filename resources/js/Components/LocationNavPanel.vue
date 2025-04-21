@@ -24,6 +24,15 @@ const currentLocationId = computed(() => {
     return page.props.location?.id;
 });
 
+// Function to remove city name from location name
+const formatLocationName = (locationName) => {
+  // Check if the location name contains the city name
+  if (locationName && props.city && locationName.includes(props.city)) {
+    // Remove the city name and any separators (like comma, hyphen) and trim spaces
+    return locationName.replace(new RegExp(`${props.city}\\s*[,-]?\\s*`, 'i'), '').trim();
+  }
+  return locationName;
+};
 
 const fetchLocations = async () => {
   isLoading.value = true;
@@ -73,22 +82,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-64 p-4 bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 h-full overflow-y-auto flex-shrink-0">
-    <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Locations in {{ city }}</h3>
+  <div class="nav-panel-container w-64 p-4 h-full overflow-y-auto flex-shrink-0" style="padding-top: 160px;">
+    <!-- <h3 class="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Locations in {{ city }}</h3> -->
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="error" class="text-red-500">{{ error }}</div>
     <ul v-else-if="locations.length > 0" class="space-y-2">
       <li v-for="location in locations" :key="location.id">
         <Link
           :href="getLocationUrl(location)"
+          style="font-family: 'EB Garamond';font-weight: 700;font-size: 1.2em;"
           :class="[
-            'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ease-in-out',
+            'block px-3 py-1 rounded-md text-sm  transition-colors duration-150 ease-in-out',
             location.id === currentLocationId
-              ? 'bg-blue-500 text-white dark:bg-blue-600' // Active link style
+                ? 'bg-red-700 text-white dark:bg-red-800' // Active link style - brick red color
               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700' // Inactive link style
           ]"
         >
-          {{ location.name }}
+          {{ formatLocationName(location.name) }}
         </Link>
       </li>
     </ul>
@@ -98,4 +108,11 @@ onMounted(() => {
 
 <style scoped>
 /* Add any specific styles for the nav panel here if needed */
+.nav-panel-container {
+  background-image: url('/images/romans_go_home_bg_trans.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center; /* Changed to 'top center' to always show the top */
+  min-height: 130%; /* Set minimum height to 130% */
+}
 </style>
